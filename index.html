@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de BEGUILZONE, developpeur web et mobile, aspirant DevOps.">
+    <title>BEGUILZONE | Portfolio Web Mobile DevOps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #071017;
+            --panel: #0d1822;
+            --panel-2: #101f2d;
+            --text: #f7fbff;
+            --muted: #a8b6c5;
+            --line: rgba(255, 255, 255, 0.1);
+            --brand: #31f4c9;
+            --brand-2: #4aa8ff;
+            --gold: #f7b84b;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+            --radius: 18px;
+            --sidebar: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 70% 10%, rgba(49, 244, 201, 0.16), transparent 30rem),
+                radial-gradient(circle at 8% 78%, rgba(74, 168, 255, 0.14), transparent 26rem),
+                var(--bg);
+            color: var(--text);
+            font-family: Inter, Arial, sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            z-index: 30;
+            width: var(--sidebar);
+            display: flex;
+            flex-direction: column;
+            padding: 28px 22px;
+            border-right: 1px solid var(--line);
+            background: rgba(7, 16, 23, 0.86);
+            backdrop-filter: blur(18px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--brand) transparent;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--brand);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(49, 244, 201, 0.7);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 46px;
+        }
+
+        .brand-mark {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            color: #021014;
+            font-weight: 900;
+            box-shadow: 0 18px 38px rgba(49, 244, 201, 0.2);
+        }
+
+        .brand strong {
+            display: block;
+            font-size: 1.05rem;
+            line-height: 1.1;
+        }
+
+        .brand span {
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .brand .brand-mark {
+            color: #021014;
+            font-size: 1rem;
+        }
+
+        .nav-list {
+            display: grid;
+            gap: 10px;
+            list-style: none;
+        }
+
+        .nav-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 16px;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            color: var(--muted);
+            font-size: 1.02rem;
+            font-weight: 800;
+            transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 46px;
+            right: 14px;
+            bottom: 8px;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--brand), var(--brand-2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.32s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            border-color: rgba(49, 244, 201, 0.2);
+            background: rgba(49, 244, 201, 0.08);
+            color: var(--text);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .nav-icon {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            flex: 0 0 34px;
+            place-items: center;
+            border: 1px solid rgba(49, 244, 201, 0.16);
+            border-radius: 10px;
+            background: rgba(49, 244, 201, 0.08);
+            color: var(--brand);
+        }
+
+        .nav-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .mobile-topbar {
+            display: none;
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 40;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 68px;
+            padding: 0 18px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(7, 16, 23, 0.9);
+            backdrop-filter: blur(18px);
+        }
+
+        .mobile-topbar .brand {
+            margin-bottom: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 25;
+            background: rgba(2, 8, 12, 0.66);
+            opacity: 0;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+            transition: opacity 0.28s ease;
+        }
+
+        .menu-button {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            border: 1px solid rgba(49, 244, 201, 0.16);
+            border-radius: 10px;
+            background:
+                linear-gradient(145deg, rgba(49, 244, 201, 0.09), rgba(74, 168, 255, 0.05)),
+                rgba(13, 24, 34, 0.86);
+            color: var(--text);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+            cursor: pointer;
+            transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-2px);
+            border-color: rgba(49, 244, 201, 0.42);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24), 0 0 0 3px rgba(49, 244, 201, 0.04);
+        }
+
+        .menu-button-line {
+            width: 17px;
+            height: 1.4px;
+            border-radius: 999px;
+            background: var(--brand);
+            transform-origin: center;
+            transition: transform 0.25s ease, opacity 0.2s ease, width 0.25s ease;
+        }
+
+        .menu-button-line:nth-child(2) {
+            width: 12px;
+            background: rgba(74, 168, 255, 0.95);
+        }
+
+        .main {
+            margin-left: var(--sidebar);
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 44px));
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 0 0 78px;
+            scroll-margin-top: 0;
+        }
+
+        section + section {
+            margin-top: 34px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            align-items: center;
+            padding: 64px 0;
+            background:
+                linear-gradient(90deg, rgba(7, 16, 23, 0.96), rgba(7, 16, 23, 0.7)),
+                radial-gradient(circle at 70% 35%, rgba(49, 244, 201, 0.16), transparent 22rem);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.7fr);
+            gap: 54px;
+            align-items: center;
+        }
+
+        .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--brand);
+            font-size: 0.82rem;
+            font-weight: 900;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .label::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--brand);
+        }
+
+        h1 {
+            max-width: 820px;
+            font-size: clamp(3rem, 7vw, 6.7rem);
+            line-height: 0.93;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+            overflow-wrap: anywhere;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-name {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.82em;
+        }
+
+        .role {
+            margin-top: 22px;
+            color: var(--text);
+            font-size: clamp(1.4rem, 3vw, 2.3rem);
+            font-weight: 800;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: 1.06rem;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            padding: 0 24px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            font-weight: 900;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            color: #031016;
+            box-shadow: 0 20px 42px rgba(49, 244, 201, 0.18);
+        }
+
+        .btn-ghost {
+            border-color: var(--line);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+        }
+
+        .portrait-card {
+            position: relative;
+        }
+
+        .portrait {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 30px;
+            background: var(--panel);
+            box-shadow: var(--shadow);
+        }
+
+        .portrait::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(3, 16, 22, 0.8));
+        }
+
+        .portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .marquee {
+            overflow: hidden;
+            border-block: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 26s linear infinite;
+        }
+
+        .marquee span {
+            padding: 20px 34px;
+            color: var(--text);
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .marquee span::before {
+            content: "*";
+            margin-right: 20px;
+            color: var(--brand);
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.55fr);
+            gap: 34px;
+            align-items: end;
+            margin-bottom: 42px;
+        }
+
+        h2 {
+            margin-top: 8px;
+            font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+            line-height: 1;
+            letter-spacing: -0.035em;
+            font-weight: 900;
+        }
+
+        .section-head p {
+            color: var(--muted);
+        }
+
+        .section-head,
+        .hero-grid,
+        .about-grid,
+        .service-grid,
+        .stack-grid,
+        .portfolio-grid,
+        .cert-grid,
+        .contact-grid {
+            min-width: 0;
+        }
+
+        .about-grid,
+        .service-grid,
+        .cert-grid,
+        .contact-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .about-grid {
+            grid-template-columns: minmax(0, 1fr) minmax(320px, 0.75fr);
+            align-items: stretch;
+        }
+
+        .stack-card,
+        .service-card,
+        .cert-card,
+        .contact-card,
+        .about-card {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025));
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+        }
+
+        .about-card {
+            padding: 30px;
+        }
+
+        .about-card + .about-card {
+            margin-top: 20px;
+        }
+
+        .about-card h3,
+        .service-card h3,
+        .cert-card h3,
+        .contact-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.22rem;
+        }
+
+        .about-card p,
+        .service-card p,
+        .cert-card p,
+        .contact-card p {
+            color: var(--muted);
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .metric {
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--panel);
+        }
+
+        .metric strong {
+            display: block;
+            color: var(--brand);
+            font-size: 2.4rem;
+            line-height: 1;
+        }
+
+        .metric span {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .service-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .service-card {
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            padding: 18px;
+        }
+
+        .service-icon {
+            width: 100%;
+            height: 165px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 22px;
+            overflow: hidden;
+            border-radius: 16px;
+            background: rgba(49, 244, 201, 0.1);
+            color: var(--brand);
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+
+        .service-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .service-card:hover .service-icon img {
+            transform: scale(1.05);
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .stack-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 230px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 18px;
+        }
+
+        .stack-card::before {
+            content: "";
+            position: absolute;
+            inset: auto -30px -42px auto;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: rgba(49, 244, 201, 0.11);
+        }
+
+        .stack-media {
+            position: relative;
+            width: 100%;
+            height: 145px;
+            margin-bottom: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(49, 244, 201, 0.18);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+        }
+
+        .stack-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .stack-card:hover .stack-media img {
+            transform: scale(1.06);
+        }
+
+        .stack-card h3 {
+            font-size: 1.2rem;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 360px;
+            display: flex;
+            align-items: flex-end;
+            grid-column: span 6;
+            padding: 28px;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--panel);
+            box-shadow: var(--shadow);
+        }
+
+        .project-card[role="button"] {
+            cursor: pointer;
+        }
+
+        .project-card.large {
+            grid-column: span 8;
+            min-height: 430px;
+        }
+
+        .project-card.small {
+            grid-column: span 4;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(7, 16, 23, 0.12), rgba(7, 16, 23, 0.9)),
+                var(--project-bg);
+            opacity: 0.95;
+            transition: transform 0.45s ease, opacity 0.45s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-content h3 {
+            margin-bottom: 8px;
+            font-size: 1.55rem;
+            line-height: 1.16;
+        }
+
+        .project-content p {
+            max-width: 650px;
+            color: rgba(247, 251, 255, 0.78);
+        }
+
+        .project-detail-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            margin-top: 18px;
+            padding: 9px 13px;
+            border: 1px solid rgba(49, 244, 201, 0.28);
+            border-radius: 999px;
+            background: rgba(49, 244, 201, 0.1);
+            color: var(--brand);
+            font-size: 0.86rem;
+            font-weight: 900;
+        }
+
+        .project-detail-button::after {
+            content: "→";
+            transition: transform 0.2s ease;
+        }
+
+        .project-card:hover .project-detail-button::after {
+            transform: translateX(3px);
+        }
+
+        .project-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2100;
+            display: grid;
+            place-items: center;
+            padding: 26px;
+            background: rgba(2, 8, 12, 0.84);
+            opacity: 0;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            transition: opacity 0.28s ease;
+        }
+
+        .project-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .project-modal-card {
+            position: relative;
+            width: min(1020px, 100%);
+            max-height: min(88vh, 860px);
+            overflow: auto;
+            border: 1px solid rgba(49, 244, 201, 0.24);
+            border-radius: 26px;
+            background: rgba(7, 16, 23, 0.96);
+            box-shadow: 0 34px 110px rgba(0, 0, 0, 0.58);
+            transform: translateY(18px) scale(0.96);
+            transition: transform 0.28s ease;
+            scrollbar-width: thin;
+            scrollbar-color: var(--brand) transparent;
+        }
+
+        .project-modal-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .project-modal-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .project-modal-card::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background: var(--brand);
+            transition: background 0.3s ease;
+        }
+
+        .project-modal-card::-webkit-scrollbar-thumb:hover {
+            background: rgba(49, 244, 201, 0.7);
+        }
+
+        .project-modal.show .project-modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .project-modal-hero {
+            min-height: 300px;
+            display: flex;
+            align-items: flex-end;
+            padding: 34px;
+            background:
+                linear-gradient(180deg, rgba(7, 16, 23, 0.16), rgba(7, 16, 23, 0.9)),
+                var(--project-modal-bg, url('images/docker/ep1.jpeg')) center/cover;
+        }
+
+        .project-modal-body {
+            padding: 30px 34px 34px;
+        }
+
+        .project-modal-body p {
+            color: rgba(247, 251, 255, 0.8);
+        }
+
+        .project-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin: 24px 0;
+        }
+
+        .project-detail-card {
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.045);
+        }
+
+        .project-detail-card strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--brand);
+        }
+
+        .project-modal-link {
+            display: inline-flex;
+            margin-top: 18px;
+        }
+
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .project-gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: zoom-in;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .project-gallery img:hover {
+            transform: translateY(-3px);
+            border-color: rgba(49, 244, 201, 0.38);
+        }
+
+        .image-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2300;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: rgba(2, 8, 12, 0.9);
+            opacity: 0;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            transition: opacity 0.24s ease;
+        }
+
+        .image-lightbox.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .image-lightbox img {
+            max-width: min(1100px, 94vw);
+            max-height: 86vh;
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 18px;
+            box-shadow: 0 34px 110px rgba(0, 0, 0, 0.62);
+            transform: scale(0.96);
+            transition: transform 0.24s ease;
+        }
+
+        .image-lightbox.show img {
+            transform: scale(1);
+        }
+
+        .image-lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            background: rgba(7, 16, 23, 0.76);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .image-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            background: rgba(7, 16, 23, 0.76);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.8rem;
+            line-height: 1;
+            transform: translateY(-50%);
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .image-lightbox-nav:hover {
+            border-color: rgba(49, 244, 201, 0.42);
+            background: rgba(13, 24, 34, 0.92);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .image-lightbox-prev {
+            left: 22px;
+        }
+
+        .image-lightbox-next {
+            right: 22px;
+        }
+
+        .project-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            background: rgba(7, 16, 23, 0.76);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .tag {
+            padding: 7px 11px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            font-size: 0.82rem;
+            font-weight: 800;
+        }
+
+        .cert-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .cert-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 260px;
+            padding: 30px;
+            background:
+                linear-gradient(180deg, rgba(7, 16, 23, 0.78), rgba(7, 16, 23, 0.96)),
+                var(--cert-bg, linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)));
+            background-size: cover;
+            background-position: center;
+            isolation: isolate;
+            cursor: pointer;
+            transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .cert-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 20%, rgba(49, 244, 201, 0.18), transparent 18rem);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(49, 244, 201, 0.38);
+            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+        }
+
+        .cert-card span {
+            display: inline-flex;
+            margin-bottom: 22px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(247, 184, 75, 0.12);
+            color: var(--gold);
+            font-weight: 900;
+        }
+
+        .cert-card p {
+            color: rgba(247, 251, 255, 0.78);
+        }
+
+        .cert-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: grid;
+            place-items: center;
+            padding: 26px;
+            background: rgba(2, 8, 12, 0.82);
+            opacity: 0;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            transition: opacity 0.28s ease;
+        }
+
+        .cert-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cert-modal-card {
+            position: relative;
+            overflow: hidden;
+            width: min(760px, 100%);
+            min-height: min(560px, 82vh);
+            display: flex;
+            align-items: flex-end;
+            border: 1px solid rgba(49, 244, 201, 0.24);
+            border-radius: 26px;
+            background:
+                linear-gradient(180deg, rgba(7, 16, 23, 0.2), rgba(7, 16, 23, 0.92) 68%, rgba(7, 16, 23, 0.98)),
+                var(--modal-bg);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 34px 110px rgba(0, 0, 0, 0.58);
+            transform: translateY(18px) scale(0.96);
+            transition: transform 0.28s ease;
+        }
+
+        .cert-modal.show .cert-modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .cert-modal-content {
+            width: 100%;
+            padding: 34px;
+            background: linear-gradient(180deg, transparent, rgba(7, 16, 23, 0.72));
+        }
+
+        .cert-modal-provider {
+            display: inline-flex;
+            margin-bottom: 14px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(247, 184, 75, 0.14);
+            color: var(--gold);
+            font-weight: 900;
+        }
+
+        .cert-modal-title {
+            margin-bottom: 10px;
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
+            line-height: 1.05;
+        }
+
+        .cert-modal-text {
+            max-width: 650px;
+            color: rgba(247, 251, 255, 0.84);
+            font-size: 1.02rem;
+        }
+
+        .cert-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            background: rgba(7, 16, 23, 0.72);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .contact {
+            padding-bottom: 60px;
+        }
+
+        .contact-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .contact-card {
+            padding: 28px;
+        }
+
+        .contact-icon {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(49, 244, 201, 0.2);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .contact-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-card a {
+            display: inline-flex;
+            margin-top: 12px;
+            color: var(--brand);
+            font-weight: 900;
+        }
+
+        .profile-links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .profile-link {
+            display: grid;
+            gap: 8px;
+            place-items: center;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 900;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-3px);
+            border-color: rgba(49, 244, 201, 0.38);
+        }
+
+        .profile-link img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .whatsapp-form {
+            margin-top: 24px;
+            padding: 30px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025));
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+        }
+
+        .whatsapp-form h3 {
+            margin-bottom: 8px;
+            font-size: 1.28rem;
+        }
+
+        .whatsapp-form p {
+            margin-bottom: 20px;
+            color: var(--muted);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .form-field {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-field label {
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            background: rgba(7, 16, 23, 0.72);
+            color: var(--text);
+            font: inherit;
+            outline: none;
+            padding: 13px 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-field textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: rgba(49, 244, 201, 0.52);
+            box-shadow: 0 0 0 4px rgba(49, 244, 201, 0.08);
+        }
+
+        .whatsapp-submit {
+            margin-top: 16px;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .btn-icon {
+            width: 24px;
+            height: 24px;
+            overflow: hidden;
+            border-radius: 7px;
+        }
+
+        .btn-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .footer {
+            margin-left: var(--sidebar);
+            padding: 34px 0 50px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1280px) {
+            :root {
+                --sidebar: 250px;
+            }
+
+            .container {
+                width: min(100% - 36px, 1040px);
+            }
+
+            .nav-link {
+                gap: 12px;
+                padding: 13px 12px;
+                font-size: 0.96rem;
+            }
+        }
+
+        @media (max-width: 1080px) {
+            :root {
+                --sidebar: 230px;
+            }
+
+            .hero-grid,
+            .about-grid,
+            .section-head {
+                grid-template-columns: 1fr;
+            }
+
+            .service-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stack-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            h1 {
+                font-size: clamp(2.8rem, 8vw, 5rem);
+            }
+        }
+
+        @media (max-width: 980px) {
+            .mobile-topbar {
+                display: flex;
+            }
+
+            .sidebar {
+                top: 14px;
+                bottom: 14px;
+                left: 14px;
+                height: auto;
+                transform: translateX(calc(-100% - 28px));
+                transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+                width: min(330px, 88vw);
+                padding: 86px 20px 22px;
+                border: 1px solid rgba(49, 244, 201, 0.18);
+                border-radius: 24px;
+                background: rgba(7, 16, 23, 0.94);
+                box-shadow: 24px 0 70px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            }
+
+            body.menu-open .sidebar {
+                transform: translateX(0);
+            }
+
+            body.menu-open {
+                overflow: hidden;
+            }
+
+            body.menu-open .menu-overlay {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            body.menu-open .menu-button-line:nth-child(1) {
+                transform: translateY(5.5px) rotate(45deg);
+            }
+
+            body.menu-open .menu-button-line:nth-child(2) {
+                opacity: 0;
+                width: 0;
+            }
+
+            body.menu-open .menu-button-line:nth-child(3) {
+                transform: translateY(-5.5px) rotate(-45deg);
+            }
+
+            body.menu-open .menu-button {
+                border-color: rgba(49, 244, 201, 0.5);
+                background:
+                    linear-gradient(145deg, rgba(49, 244, 201, 0.13), rgba(74, 168, 255, 0.08)),
+                    rgba(13, 24, 34, 0.94);
+                box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32), 0 0 0 3px rgba(49, 244, 201, 0.06);
+            }
+
+            .main,
+            .footer {
+                margin-left: 0;
+            }
+
+            .hero {
+                padding-top: 110px;
+                min-height: auto;
+            }
+
+            section {
+                padding: 0 0 62px;
+                scroll-margin-top: 76px;
+            }
+
+            section + section {
+                margin-top: 26px;
+            }
+
+            .container {
+                width: min(100% - 32px, 900px);
+            }
+
+            .portrait-card {
+                width: min(430px, 100%);
+                justify-self: center;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card,
+            .project-card.large,
+            .project-card.small {
+                grid-column: auto;
+                min-height: 330px;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                min-height: auto;
+            }
+
+            .service-icon {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                width: min(100% - 28px, 1120px);
+            }
+
+            h1 {
+                font-size: clamp(2.6rem, 14vw, 3.4rem);
+                line-height: 0.98;
+            }
+
+            .hero-name {
+                margin-top: 8px;
+                font-size: 0.76em;
+            }
+
+            h2 {
+                font-size: clamp(2rem, 11vw, 2.8rem);
+            }
+
+            .role {
+                font-size: 1.22rem;
+            }
+
+            .hero p,
+            .section-head p {
+                font-size: 0.98rem;
+            }
+
+            .actions,
+            .btn {
+                width: 100%;
+            }
+
+            .stack-grid,
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .stack-card {
+                min-height: 220px;
+            }
+
+            .stack-media {
+                height: 150px;
+            }
+
+            .sidebar {
+                width: min(310px, 88vw);
+            }
+
+            .brand {
+                gap: 10px;
+            }
+
+            .brand-mark {
+                width: 46px;
+                height: 46px;
+                border-radius: 14px;
+            }
+
+            .mobile-topbar {
+                min-height: 64px;
+                padding: 0 14px;
+            }
+
+            .portrait {
+                border-radius: 22px;
+            }
+
+            .project-card,
+            .project-card.large,
+            .project-card.small {
+                min-height: 300px;
+                padding: 22px;
+                border-radius: 20px;
+            }
+
+            .project-content h3 {
+                font-size: 1.28rem;
+            }
+
+            .project-modal {
+                padding: 14px;
+            }
+
+            .project-modal-hero {
+                min-height: 240px;
+                padding: 24px;
+            }
+
+            .project-modal-body {
+                padding: 22px;
+            }
+
+            .project-detail-grid,
+            .project-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .project-gallery img {
+                height: 190px;
+            }
+
+            .about-card,
+            .service-card,
+            .cert-card,
+            .contact-card,
+            .whatsapp-form {
+                padding: 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .marquee span {
+                padding: 15px 20px;
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .container {
+                width: min(100% - 22px, 1120px);
+            }
+
+            h1 {
+                font-size: 2.35rem;
+            }
+
+            .hero-name {
+                font-size: 0.72em;
+            }
+
+            .nav-link {
+                padding: 12px;
+                font-size: 0.92rem;
+            }
+
+            .nav-icon {
+                width: 30px;
+                height: 30px;
+                flex-basis: 30px;
+            }
+
+            .nav-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .menu-button {
+                width: 34px;
+                height: 34px;
+                border-radius: 9px;
+            }
+
+            .menu-button-line {
+                width: 16px;
+            }
+
+            .menu-button-line:nth-child(2) {
+                width: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-topbar">
+        <a class="brand" href="#banner" aria-label="Accueil BEGUILZONE">
+            <span class="brand-mark">BZ</span>
+            <span><strong>BEGUILZONE</strong><span>Portfolio</span></span>
+        </a>
+        <button class="menu-button" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span class="menu-button-line"></span>
+            <span class="menu-button-line"></span>
+            <span class="menu-button-line"></span>
+        </button>
+    </div>
+
+    <div class="menu-overlay" aria-hidden="true"></div>
+
+    <aside class="sidebar" aria-label="Navigation principale">
+        <a class="brand" href="#banner">
+            <span class="brand-mark">BZ</span>
+            <span><strong>BEGUILZONE</strong><span>Web Mobile DevOps</span></span>
+        </a>
+
+        <ul class="nav-list">
+            <li><a class="nav-link active" href="#banner"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg></span>Accueil</a></li>
+            <li><a class="nav-link" href="#about"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="8" r="4"></circle></svg></span>A propos</a></li>
+            <li><a class="nav-link" href="#services"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 6h4"></path><path d="M10 6a2 2 0 0 1 4 0"></path><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M3 13h18"></path></svg></span>Services</a></li>
+            <li><a class="nav-link" href="#skills"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"></path><path d="m8 6-6 6 6 6"></path><path d="m14 4-4 16"></path></svg></span>Competences</a></li>
+            <li><a class="nav-link" href="#portfolio"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"></path><path d="M8 13h8"></path><path d="M8 17h5"></path></svg></span>Projets</a></li>
+            <li><a class="nav-link" href="#certifications"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"></circle><path d="M8.5 12.5 7 22l5-3 5 3-1.5-9.5"></path></svg></span>Certifications</a></li>
+            <li><a class="nav-link" href="#contact"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></span>Contact</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <strong>Disponible</strong><br>
+            Pour projets web, mobile et DevOps.
+        </div>
+    </aside>
+
+    <main class="main">
+        <section id="banner" class="hero">
+            <div class="container hero-grid">
+                <div class="reveal">
+                    <span class="label">Portfolio personnel</span>
+                    <h1>Salut, je suis <span class="gradient-text hero-name">BEGUILZONE</span></h1>
+                    <div class="role">Developpeur Web & Mobile / Aspirant DevOps</div>
+                    <p>
+                        Je conçois des applications simples a utiliser, robustes et adaptees aux besoins reels:
+                        gestion de prospects, evaluation pedagogique, mentorat etudiant et automatisation des
+                        processus avec une culture DevOps.
+                    </p>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="#portfolio">Voir mes projets</a>
+                        <a class="btn btn-ghost" href="#contact">Me contacter</a>
+                    </div>
+                </div>
+
+                <div class="portrait-card reveal">
+                    <div class="portrait">
+                        <img src="images/img1.jpg" alt="Photo de BEGUILZONE">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="marquee" aria-label="Technologies principales">
+            <div class="marquee-track">
+                <span>HTML</span><span>CSS</span><span>PHP</span><span>Flutter</span><span>Git</span><span>GitHub</span><span>Docker</span><span>GitLab</span><span>Administration systeme Linux</span>
+                <span>HTML</span><span>CSS</span><span>PHP</span><span>Flutter</span><span>Git</span><span>GitHub</span><span>Docker</span><span>GitLab</span><span>Administration systeme Linux</span>
+            </div>
+        </div>
+
+        <section id="about">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="label">A propos de moi</span>
+                        <h2>Developpeur web, mobile et DevOps en construction active.</h2>
+                    </div>
+                    <p>
+                        Je conçois des solutions pratiques pour les ecoles, les entreprises et les utilisateurs:
+                        gestion de donnees, suivi des activites, applications mobiles et deploiement de services.
+                    </p>
+                </div>
+
+                <div class="about-grid">
+                    <div>
+                        <article class="about-card reveal">
+                            <h3>Ce qui me definit</h3>
+                            <p>
+                                Je suis a l'aise avec le developpement web et mobile, mais aussi avec les outils qui
+                                rendent un projet plus solide: Git, GitHub, GitLab, Docker et Linux.
+                            </p>
+                        </article>
+                        <article class="about-card reveal">
+                            <h3>Ce que j'apporte</h3>
+                            <p>
+                                Je transforme une idee en application utilisable, avec une interface claire, une
+                                logique bien structuree et une organisation pensee pour faciliter l'evolution du projet.
+                            </p>
+                        </article>
+                    </div>
+
+                    <div class="metrics reveal">
+                        <div class="metric"><strong>05</strong><span>realisations presentees</span></div>
+                        <div class="metric"><strong>05</strong><span>certifications obtenues</span></div>
+                        <div class="metric"><strong>10</strong><span>competences techniques</span></div>
+                        <div class="metric"><strong>DevOps</strong><span>culture de deploiement</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="label">Services</span>
+                        <h2>Ce que je peux construire.</h2>
+                    </div>
+                    <p>
+                        Des solutions concretes pour des besoins academiques, commerciaux ou collaboratifs.
+                    </p>
+                </div>
+
+                <div class="service-grid">
+                    <article class="service-card reveal">
+                        <div class="service-icon"><img src="images/ep16.jpg" alt="Applications web"></div>
+                        <h3>Applications web</h3>
+                        <p>Interfaces et back-offices en HTML, CSS et PHP pour gerer des donnees et des processus.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon"><img src="images/ep17.jpg" alt="Applications mobiles"></div>
+                        <h3>Applications mobiles</h3>
+                        <p>Applications Flutter orientees usage, fluidite et experience etudiante.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon"><img src="images/ep18.jpg" alt="Culture DevOps"></div>
+                        <h3>Culture DevOps</h3>
+                        <p>Versioning, collaboration Git/GitHub/GitLab, conteneurisation Docker et logique de livraison.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="label">Competences</span>
+                        <h2>Stack technique maitrisee.</h2>
+                    </div>
+                    <p>
+                        Une base polyvalente pour concevoir, developper, suivre et deployer des applications modernes.
+                    </p>
+                </div>
+
+                <div class="stack-grid">
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep1.jpg" alt="Logo HTML"></div><h3>HTML</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep2.jpg" alt="Logo CSS"></div><h3>CSS</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep3.jpg" alt="Logo PHP"></div><h3>PHP</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep4.jpg" alt="Logo Flutter"></div><h3>Flutter</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep9.jpg" alt="Administration systeme Linux"></div><h3>Administration systeme Linux</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep5.jpg" alt="Logo Git"></div><h3>Git</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep6.jpg" alt="Logo GitHub CI/CD"></div><h3>GitHub CI/CD</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep8.jpg" alt="Logo GitLab"></div><h3>GitLab</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep7.jpg" alt="Logo Docker"></div><h3>Docker</h3></article>
+                    <article class="stack-card reveal"><div class="stack-media"><img src="images/ep19.jpg" alt="Logo Kubernetes"></div><h3>Kubernetes</h3></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="label">Portfolio</span>
+                        <h2>Projets presentes comme une galerie.</h2>
+                    </div>
+                </div>
+
+                <div class="portfolio-grid">
+                    <article class="project-card reveal project-detail-trigger" tabindex="0" role="button" data-project-key="crm" style="--project-bg: linear-gradient(135deg, rgba(49,244,201,0.42), rgba(74,168,255,0.16)), url('images/crm/ep1.png') center/cover;">
+                        <div class="project-content">
+                            <h3>CRMN de ISTAMA INUBIL</h3>
+                            <p>
+                                Solution CRM pour gerer les contacts des prospects, organiser le suivi et faciliter
+                                les relances.
+                            </p>
+                            <div class="tags"><span class="tag">PHP</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">CRM</span></div>
+                            <div class="project-actions">
+                                <span class="project-detail-button">Voir les details</span>
+                                <a class="project-detail-button project-live-button" href="https://crminubil.com/" target="_blank" rel="noopener">Voir le site</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal project-detail-trigger" tabindex="0" role="button" data-project-key="evaluations" style="--project-bg: linear-gradient(135deg, rgba(247,184,75,0.4), rgba(49,244,201,0.12)), url('images/evaluation/ep1.png') center/cover;">
+                        <div class="project-content">
+                            <h3>Gestion des evaluations</h3>
+                            <p>
+                                Plateforme pour evaluer l'enseignement dispense par un enseignant et soutenir
+                                l'amelioration pedagogique.
+                            </p>
+                            <div class="tags"><span class="tag">Web App</span><span class="tag">Evaluation</span><span class="tag">PHP</span></div>
+                            <span class="project-detail-button">Voir les details</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal project-detail-trigger" tabindex="0" role="button" data-project-key="inulearn" style="--project-bg: linear-gradient(135deg, rgba(74,168,255,0.38), rgba(49,244,201,0.15)), url('images/inulear/ep2.jpg') center/cover;">
+                        <div class="project-content">
+                            <h3>InuLearn</h3>
+                            <p>
+                                Application mobile de mentorat permettant aux etudiants de rechercher des mentors
+                                pour obtenir du soutien dans differentes matieres.
+                            </p>
+                            <div class="tags"><span class="tag">Flutter</span><span class="tag">Mobile</span><span class="tag">Mentorat</span></div>
+                            <span class="project-detail-button">Voir les details</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal project-detail-trigger" tabindex="0" role="button" data-project-key="docker" style="--project-bg: linear-gradient(135deg, rgba(49,244,201,0.28), rgba(7,16,23,0.4)), url('images/docker/ep1.jpeg') center/cover;">
+                        <div class="project-content">
+                            <h3>Application e-commerce microservices avec Docker Compose</h3>
+                            <p>
+                                Deploiement d'une application e-commerce composee de plusieurs microservices
+                                et orchestree avec Docker Compose.
+                            </p>
+                            <div class="tags"><span class="tag">Docker Compose</span><span class="tag">Microservices</span><span class="tag">E-commerce</span></div>
+                            <span class="project-detail-button">Voir les details</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal project-detail-trigger" tabindex="0" role="button" data-project-key="vitrines" style="--project-bg: linear-gradient(135deg, rgba(247,184,75,0.25), rgba(49,244,201,0.12)), url('images/dockerfile/ep1.jpg') center/cover;">
+                        <div class="project-content">
+                            <h3>Deploiement d'applications vitrines avec Dockerfile</h3>
+                            <p>
+                                Conteneurisation et deploiement de plusieurs applications vitrines developpees avec
+                                differents langages de programmation.
+                            </p>
+                            <div class="tags"><span class="tag">Dockerfile</span><span class="tag">Python</span><span class="tag">Java</span><span class="tag">PHP</span></div>
+                            <span class="project-detail-button">Voir les details</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="label">Certifications</span>
+                        <h2>Formations obtenues.</h2>
+                    </div>
+                    <p>
+                        Des apprentissages qui renforcent mes competences en Linux, en DevOps et en IA appliquee aux metiers.
+                    </p>
+                </div>
+
+                <div class="cert-grid">
+                    <article class="cert-card reveal" tabindex="0" role="button" style="--cert-bg: url('images/ep20.png');" data-cert-image="images/ep20.png" data-cert-provider="Cisco Networking Academy" data-cert-title="Linux Unhatched" data-cert-text="J'ai obtenu la certification Linux Unhatched proposee par Networking Academy dans le cadre du programme Cisco Networking Academy. Cette formation m'a permis d'acquerir les bases essentielles de Linux et de l'utilisation de la ligne de commande.">
+                        <span>Cisco Networking Academy</span>
+                        <h3>Linux Unhatched</h3>
+                        <p>Certification sur les bases essentielles de Linux et l'utilisation de la ligne de commande.</p>
+                    </article>
+                    <article class="cert-card reveal" tabindex="0" role="button" style="--cert-bg: url('images/ep21.png');" data-cert-image="images/ep21.png" data-cert-provider="LeCloudFacile" data-cert-title="Introduction a Docker" data-cert-text="J'ai suivi avec succes le cours Introduction a Docker propose par LeCloudFacile. Cette formation m'a permis d'acquerir les bases de la conteneurisation, de la creation d'images et de l'execution de conteneurs avec Docker.">
+                        <span>LeCloudFacile</span>
+                        <h3>Introduction a Docker</h3>
+                        <p>Formation sur les bases de la conteneurisation, des images et des conteneurs Docker.</p>
+                    </article>
+                    <article class="cert-card reveal" tabindex="0" role="button" style="--cert-bg: url('images/ep22.png');" data-cert-image="images/ep22.png" data-cert-provider="LeCloudFacile" data-cert-title="Kubernetes pour les debutants" data-cert-text="J'ai suivi avec succes le cours Kubernetes pour les debutants propose par LeCloudFacile. Cette formation m'a permis d'acquerir les bases de l'orchestration de conteneurs, du deploiement d'applications et de la gestion des ressources avec Kubernetes.">
+                        <span>LeCloudFacile</span>
+                        <h3>Kubernetes pour les debutants</h3>
+                        <p>Formation sur les bases de l'orchestration de conteneurs et du deploiement avec Kubernetes.</p>
+                    </article>
+                    <article class="cert-card reveal" tabindex="0" role="button" style="--cert-bg: url('images/ep10.png');" data-cert-image="images/ep10.png" data-cert-provider="LeCloudFacile" data-cert-title="Initiation au DevOps" data-cert-text="J'ai suivi avec brio cette formation d'initiation au DevOps sur LeCloudFacile. Elle m'a permis de renforcer ma comprehension de la culture DevOps, de la collaboration, de l'automatisation et des principes de livraison logicielle.">
+                        <span>LeCloudFacile</span>
+                        <h3>Initiation au DevOps</h3>
+                        <p>Formation sur les bases DevOps, la culture de collaboration et les principes de livraison.</p>
+                    </article>
+                    <article class="cert-card reveal" tabindex="0" role="button" style="--cert-bg: url('images/ep11.png');" data-cert-image="images/ep11.png" data-cert-provider="HP LIFE" data-cert-title="L'IA pour les professionnels" data-cert-text="J'ai suivi avec brio cette formation HP LIFE sur l'IA pour les professionnels. Elle m'a aide a mieux comprendre les usages de l'intelligence artificielle dans le travail, la productivite et la resolution de problemes.">
+                        <span>HP LIFE</span>
+                        <h3>L'IA pour les professionnels</h3>
+                        <p>Formation sur l'utilisation de l'intelligence artificielle dans un contexte professionnel.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div>
+                        <span class="label">Contact</span>
+                        <h2>Parlons d'un projet utile.</h2>
+                    </div>
+                    <p>
+                        Contacte-moi directement par telephone ou envoie-moi un message WhatsApp depuis le formulaire.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <article class="contact-card reveal">
+                        <div class="contact-icon"><img src="images/ep13.jpg" alt="Icone telephone"></div>
+                        <h3>Telephone</h3>
+                        <p>Disponible pour projet, stage, collaboration ou mission.</p>
+                        <a href="tel:+237683601901">+237 683 601 901</a>
+                    </article>
+                    <article class="contact-card reveal">
+                        <div class="contact-icon"><img src="images/ep12.jpg" alt="Icone WhatsApp"></div>
+                        <h3>WhatsApp</h3>
+                        <p>Envoie-moi rapidement ton besoin ou ton idee de projet.</p>
+                        <a href="https://wa.me/237683601901" target="_blank" rel="noopener">Ecrire sur WhatsApp</a>
+                    </article>
+                    <article class="contact-card reveal">
+                        <h3>Profils</h3>
+                        <p>GitHub, GitLab et reseaux professionnels.</p>
+                        <div class="profile-links">
+                            <a class="profile-link" href="https://github.com/BEGUIL" target="_blank" rel="noopener" aria-label="Profil GitHub">
+                                <img src="images/ep14.jpg" alt="Icone GitHub">
+                                <span>GitHub</span>
+                            </a>
+                            <a class="profile-link" href="#" aria-label="Profil GitLab">
+                                <img src="images/ep15.jpg" alt="Icone GitLab">
+                                <span>GitLab</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <form class="whatsapp-form reveal" id="whatsapp-form">
+                    <h3>Envoyer un message sur WhatsApp</h3>
+                    <p>Remplis ce formulaire et ton message s'ouvrira directement dans WhatsApp.</p>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="wa-name">Nom</label>
+                            <input id="wa-name" name="name" type="text" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="wa-subject">Sujet</label>
+                            <input id="wa-subject" name="subject" type="text" placeholder="Projet, stage, collaboration..." required>
+                        </div>
+                        <div class="form-field full">
+                            <label for="wa-message">Message</label>
+                            <textarea id="wa-message" name="message" placeholder="Expliquez votre besoin..." required></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary whatsapp-submit" type="submit"><span class="btn-icon"><img src="images/ep12.jpg" alt=""></span>Envoyer sur WhatsApp</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div class="project-modal" aria-hidden="true">
+        <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+            <button class="project-modal-close" type="button" aria-label="Fermer le projet">&times;</button>
+            <div class="project-modal-hero">
+                <div>
+                    <span class="label project-modal-label">Projet DevOps</span>
+                    <h2 id="project-modal-title">Application e-commerce microservices avec Docker Compose</h2>
+                </div>
+            </div>
+            <div class="project-modal-body">
+                <p class="project-modal-description">
+                    Ce projet consistait a deployer une application web de e-commerce sous forme de microservices.
+                    L'environnement a ete organise avec Docker Compose afin de lancer les differents services,
+                    faciliter la configuration et rendre le deploiement plus clair.
+                </p>
+                <div class="project-modal-link"></div>
+
+                <div class="project-detail-grid"></div>
+
+                <div class="tags project-modal-tags"></div>
+
+                <div class="project-gallery" aria-label="Captures du projet"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cert-modal" aria-hidden="true">
+        <div class="cert-modal-card" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+            <button class="cert-modal-close" type="button" aria-label="Fermer la certification">&times;</button>
+            <div class="cert-modal-content">
+                <span class="cert-modal-provider"></span>
+                <h3 class="cert-modal-title" id="cert-modal-title"></h3>
+                <p class="cert-modal-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-lightbox" aria-hidden="true">
+        <button class="image-lightbox-close" type="button" aria-label="Fermer l'image">&times;</button>
+        <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Image precedente">&lsaquo;</button>
+        <img src="" alt="">
+        <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Image suivante">&rsaquo;</button>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 BEGUILZONE. Portfolio inspire du modele visite et personnalise avec mes projets.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuButton = document.querySelector('.menu-button');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+        const reveals = document.querySelectorAll('.reveal');
+        const projectDetailTriggers = document.querySelectorAll('.project-detail-trigger');
+        const projectModal = document.querySelector('.project-modal');
+        const projectModalClose = document.querySelector('.project-modal-close');
+        const projectModalHero = document.querySelector('.project-modal-hero');
+        const projectModalLabel = document.querySelector('.project-modal-label');
+        const projectModalTitle = document.querySelector('#project-modal-title');
+        const projectModalDescription = document.querySelector('.project-modal-description');
+        const projectModalLink = document.querySelector('.project-modal-link');
+        const projectDetailGrid = document.querySelector('.project-detail-grid');
+        const projectModalTags = document.querySelector('.project-modal-tags');
+        const projectGallery = document.querySelector('.project-gallery');
+        const imageLightbox = document.querySelector('.image-lightbox');
+        const imageLightboxImg = document.querySelector('.image-lightbox img');
+        const imageLightboxClose = document.querySelector('.image-lightbox-close');
+        const imageLightboxPrev = document.querySelector('.image-lightbox-prev');
+        const imageLightboxNext = document.querySelector('.image-lightbox-next');
+        const certCards = document.querySelectorAll('.cert-card');
+        const certModal = document.querySelector('.cert-modal');
+        const certModalCard = document.querySelector('.cert-modal-card');
+        const certModalProvider = document.querySelector('.cert-modal-provider');
+        const certModalTitle = document.querySelector('.cert-modal-title');
+        const certModalText = document.querySelector('.cert-modal-text');
+        const certModalClose = document.querySelector('.cert-modal-close');
+        const whatsappForm = document.querySelector('#whatsapp-form');
+
+        menuButton.addEventListener('click', () => {
+            const isOpen = document.body.classList.toggle('menu-open');
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        menuOverlay.addEventListener('click', () => {
+            document.body.classList.remove('menu-open');
+            menuButton.setAttribute('aria-expanded', 'false');
+        });
+
+        navLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                document.body.classList.remove('menu-open');
+                menuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        const projectDetails = {
+            crm: {
+                label: 'Projet CRM',
+                title: 'CRMN de ISTAMA INUBIL',
+                hero: 'images/crm/ep1.png',
+                liveUrl: 'https://crminubil.com/',
+                description: "CRMN de ISTAMA INUBIL est une solution CRM concue pour gerer les contacts des prospects, organiser le suivi commercial et faciliter les relances. Elle aide a centraliser les informations importantes et a mieux structurer les interactions avec les prospects.",
+                details: [
+                    ['Objectif', 'Centraliser les contacts des prospects et simplifier leur suivi.'],
+                    ['Gestion des prospects', 'Enregistrer, organiser et consulter les informations importantes sur chaque prospect.'],
+                    ['Suivi commercial', 'Faciliter les relances et garder une trace des interactions.'],
+                    ['Organisation', 'Structurer les donnees pour rendre la recherche et la prise de decision plus rapides.'],
+                    ['Utilisateurs', 'Equipe commerciale, administration et responsables de suivi.'],
+                    ['Impact', 'Ameliorer la relation avec les prospects et optimiser les relances.']
+                ],
+                tags: ['CRM', 'Prospects', 'Suivi', 'Relances', 'PHP'],
+                images: ['images/crm/ep1.png', 'images/crm/ep2.png', 'images/crm/ep3.png']
+            },
+            docker: {
+                label: 'Projet DevOps',
+                title: 'Application e-commerce microservices avec Docker Compose',
+                hero: 'images/docker/ep1.jpeg',
+                description: "Ce projet consistait a deployer une application web de e-commerce sous forme de microservices. L'environnement a ete organise avec Docker Compose afin de lancer les differents services, faciliter la configuration et rendre le deploiement plus clair.",
+                details: [
+                    ['Architecture', 'Application e-commerce basee sur une architecture microservices.'],
+                    ['Langages et frameworks', 'Java Spring Boot, Node.js et Go pour les differents services applicatifs.'],
+                    ['Donnees et cache', 'MariaDB, DynamoDB et Redis selon les besoins des services.'],
+                    ['Serveur web', "Nginx Server pour exposer et router l'application."],
+                    ['Conteneurisation', 'Docker et Docker Compose pour construire, relier et executer les services.'],
+                    ['Objectif', 'Obtenir un environnement reproductible, plus simple a demarrer et a maintenir.']
+                ],
+                tags: ['E-commerce', 'Microservices', 'Java Spring Boot', 'Node.js', 'Go', 'MariaDB', 'DynamoDB', 'Redis', 'Nginx', 'Docker Compose'],
+                images: ['images/docker/ep1.jpeg', 'images/docker/ep2.jpeg', 'images/docker/ep3.jpeg', 'images/docker/ep4.jpeg', 'images/docker/ep5.jpeg', 'images/docker/ep6.jpeg']
+            },
+            evaluations: {
+                label: 'Projet Web',
+                title: 'Application de gestion des evaluations',
+                hero: 'images/evaluation/ep1.png',
+                liveUrl: 'http://evaluation.crminubil.com/',
+                description: "Cette plateforme permet d'evaluer l'enseignement dispense par un enseignant afin de soutenir l'amelioration pedagogique. Elle centralise les evaluations, facilite le suivi et aide a mieux analyser les retours des apprenants.",
+                details: [
+                    ['Objectif', "Permettre aux apprenants d'evaluer les enseignements de maniere structuree."],
+                    ['Utilisateurs', 'Etudiants, enseignants et responsables academiques.'],
+                    ['Fonction principale', 'Collecte et organisation des evaluations pedagogiques.'],
+                    ['Suivi', 'Centralisation des retours pour faciliter la consultation et l’analyse.'],
+                    ['Impact', "Aider a ameliorer la qualite de l'enseignement dispense."],
+                    ['Type de solution', 'Application web orientee gestion et qualite academique.']
+                ],
+                tags: ['Evaluation', 'Application Web', 'Qualite pedagogique', 'Enseignement', 'PHP'],
+                images: ['images/evaluation/ep1.png', 'images/evaluation/ep2.png', 'images/evaluation/ep3.png']
+            },
+            inulearn: {
+                label: 'Projet Mobile',
+                title: 'InuLearn - application mobile de mentorat etudiant',
+                hero: 'images/inulear/ep2.jpg',
+                description: "InuLearn est une application mobile developpee avec Flutter pour faciliter la recherche de mentors par les etudiants. Elle permet aux apprenants de trouver un accompagnement dans differentes matieres et de mieux organiser le soutien academique.",
+                details: [
+                    ['Objectif', 'Mettre en relation les etudiants avec des mentors capables de les aider dans leurs matieres.'],
+                    ['Application mobile', 'Interface Flutter pensee pour une utilisation simple, rapide et accessible.'],
+                    ['Base de donnees', 'Supabase est utilise pour stocker et gerer les donnees de l’application.'],
+                    ['Fonction principale', 'Recherche de mentors et consultation des possibilites de soutien.'],
+                    ['Public cible', 'Etudiants ayant besoin d’un accompagnement academique.'],
+                    ['Impact', 'Favoriser l’entraide, le mentorat et la progression des apprenants.']
+                ],
+                tags: ['InuLearn', 'Flutter', 'Mobile', 'Mentorat', 'Etudiants', 'Supabase'],
+                images: ['images/inulear/ep1.jpg', 'images/inulear/ep2.jpg', 'images/inulear/ep3.jpg', 'images/inulear/ep4.jpg']
+            },
+            vitrines: {
+                label: 'Projet DevOps',
+                title: "Deploiement de plusieurs applications vitrines avec Dockerfile",
+                hero: 'images/dockerfile/ep1.jpg',
+                description: "Ce projet consiste a conteneuriser et deployer plusieurs applications vitrines developpees avec differents langages de programmation. Chaque application dispose de son propre Dockerfile afin de definir son environnement d'execution, ses dependances et sa procedure de lancement.",
+                details: [
+                    ['Objectif', 'Rendre plusieurs applications vitrines faciles a lancer, transporter et deployer.'],
+                    ['Approche', 'Creer un Dockerfile adapte a chaque technologie et a chaque application.'],
+                    ['Langages', 'Python, Java, PHP et plusieurs autres langages selon les besoins des applications.'],
+                    ['Conteneurisation', 'Isolation de chaque application dans son propre conteneur Docker.'],
+                    ['Maintenance', 'Centraliser les procedures de lancement pour reduire les erreurs de configuration.'],
+                    ['Resultat', 'Des applications vitrines plus simples a deployer sur differents environnements.']
+                ],
+                tags: ['Applications vitrines', 'Dockerfile', 'Python', 'Java', 'PHP', 'Deploiement'],
+                images: ['images/dockerfile/ep1.jpg', 'images/dockerfile/ep2.jpg', 'images/dockerfile/ep3.jpg']
+            }
+        };
+
+        let activeGalleryImages = [];
+        let activeImageIndex = 0;
+
+        const showLightboxImage = () => {
+            const image = activeGalleryImages[activeImageIndex];
+            if (!image) return;
+            imageLightboxImg.src = image.src;
+            imageLightboxImg.alt = image.alt;
+        };
+
+        const renderProjectImages = () => {
+            activeGalleryImages = Array.from(projectGallery.querySelectorAll('img'));
+            activeGalleryImages.forEach((image, index) => {
+                image.addEventListener('click', () => openImageLightbox(index));
+            });
+        };
+
+        const openProjectModal = (projectKey) => {
+            const project = projectDetails[projectKey];
+            if (!project) return;
+            projectModalHero.style.setProperty('--project-modal-bg', project.hero ? `url('${project.hero}')` : 'linear-gradient(135deg, rgba(247,184,75,0.24), rgba(49,244,201,0.14))');
+            projectModalLabel.textContent = project.label;
+            projectModalTitle.textContent = project.title;
+            projectModalDescription.textContent = project.description;
+            projectModalLink.innerHTML = project.liveUrl ? `<a class="btn btn-primary" href="${project.liveUrl}" target="_blank" rel="noopener">Voir le site en ligne</a>` : '';
+            projectDetailGrid.innerHTML = project.details.map(([title, text]) => `<div class="project-detail-card"><strong>${title}</strong><p>${text}</p></div>`).join('');
+            projectModalTags.innerHTML = project.tags.map((tag) => `<span class="tag">${tag}</span>`).join('');
+            projectGallery.innerHTML = project.images.length
+                ? project.images.map((src, index) => `<img src="${src}" alt="Capture ${index + 1} du projet ${project.title}">`).join('')
+                : '<div class="project-detail-card"><strong>Galerie</strong><p>Les captures de ce projet seront ajoutees prochainement.</p></div>';
+            renderProjectImages();
+            projectModal.classList.add('show');
+            projectModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeProjectModal = () => {
+            projectModal.classList.remove('show');
+            projectModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        };
+
+        projectDetailTriggers.forEach((trigger) => {
+            trigger.addEventListener('click', () => openProjectModal(trigger.dataset.projectKey));
+            trigger.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openProjectModal(trigger.dataset.projectKey);
+                }
+            });
+        });
+
+        document.querySelectorAll('.project-live-button').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
+        });
+
+        projectModalClose.addEventListener('click', closeProjectModal);
+        projectModal.addEventListener('click', (event) => {
+            if (event.target === projectModal) closeProjectModal();
+        });
+
+        const openImageLightbox = (index) => {
+            activeImageIndex = index;
+            showLightboxImage();
+            imageLightbox.classList.add('show');
+            imageLightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const moveLightboxImage = (direction) => {
+            if (!activeGalleryImages.length) return;
+            activeImageIndex = (activeImageIndex + direction + activeGalleryImages.length) % activeGalleryImages.length;
+            showLightboxImage();
+        };
+
+        const closeImageLightbox = () => {
+            imageLightbox.classList.remove('show');
+            imageLightbox.setAttribute('aria-hidden', 'true');
+            imageLightboxImg.src = '';
+            document.body.style.overflow = projectModal.classList.contains('show') ? 'hidden' : '';
+        };
+
+        imageLightboxClose.addEventListener('click', closeImageLightbox);
+        imageLightboxPrev.addEventListener('click', () => moveLightboxImage(-1));
+        imageLightboxNext.addEventListener('click', () => moveLightboxImage(1));
+        imageLightbox.addEventListener('click', (event) => {
+            if (event.target === imageLightbox) closeImageLightbox();
+        });
+
+        const openCertModal = (card) => {
+            certModalCard.style.setProperty('--modal-bg', `url('${card.dataset.certImage}')`);
+            certModalProvider.textContent = card.dataset.certProvider;
+            certModalTitle.textContent = card.dataset.certTitle;
+            certModalText.textContent = card.dataset.certText;
+            certModal.classList.add('show');
+            certModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeCertModal = () => {
+            certModal.classList.remove('show');
+            certModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        };
+
+        certCards.forEach((card) => {
+            card.addEventListener('click', () => openCertModal(card));
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openCertModal(card);
+                }
+            });
+        });
+
+        certModalClose.addEventListener('click', closeCertModal);
+        certModal.addEventListener('click', (event) => {
+            if (event.target === certModal) closeCertModal();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && imageLightbox.classList.contains('show')) {
+                closeImageLightbox();
+                return;
+            }
+            if (event.key === 'ArrowLeft' && imageLightbox.classList.contains('show')) {
+                moveLightboxImage(-1);
+                return;
+            }
+            if (event.key === 'ArrowRight' && imageLightbox.classList.contains('show')) {
+                moveLightboxImage(1);
+                return;
+            }
+            if (event.key === 'Escape' && certModal.classList.contains('show')) {
+                closeCertModal();
+            }
+            if (event.key === 'Escape' && projectModal.classList.contains('show')) {
+                closeProjectModal();
+            }
+        });
+
+        whatsappForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(whatsappForm);
+            const name = formData.get('name').trim();
+            const subject = formData.get('subject').trim();
+            const message = formData.get('message').trim();
+            const whatsappMessage = encodeURIComponent(`Bonjour BEGUILZONE,
+
+Je suis ${name}.
+Sujet : ${subject}
+
+${message}`);
+            window.open(`https://wa.me/237683601901?text=${whatsappMessage}`, '_blank', 'noopener');
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.14 });
+
+        reveals.forEach((item) => revealObserver.observe(item));
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                navLinks.forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+                });
+            });
+        }, { rootMargin: '-45% 0px -45% 0px' });
+
+        sections.forEach((section) => sectionObserver.observe(section));
+    </script>
+</body>
+</html>
