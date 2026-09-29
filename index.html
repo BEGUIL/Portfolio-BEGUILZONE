@@ -1123,15 +1123,17 @@
 
         .contact-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: stretch;
         }
 
         .contact-card {
-            padding: 28px;
+            min-height: 220px;
+            padding: 24px;
         }
 
         .contact-icon {
-            width: 54px;
-            height: 54px;
+            width: 48px;
+            height: 48px;
             display: grid;
             place-items: center;
             margin-bottom: 18px;
@@ -1156,34 +1158,36 @@
 
         .profile-links {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
             margin-top: 18px;
         }
 
-        .profile-link {
+        .contact-card .profile-link {
             display: grid;
-            gap: 8px;
+            gap: 6px;
             place-items: center;
-            padding: 12px;
+            min-width: 0;
+            margin-top: 0;
+            padding: 10px 6px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
             background: rgba(255, 255, 255, 0.04);
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: 0.78rem;
             font-weight: 900;
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .profile-link:hover {
+        .contact-card .profile-link:hover {
             transform: translateY(-3px);
             border-color: rgba(49, 244, 201, 0.38);
         }
 
-        .profile-link img {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        .contact-card .profile-link img {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
             object-fit: cover;
         }
 
@@ -1317,8 +1321,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .service-grid,
-            .contact-grid {
+            .service-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1428,12 +1431,26 @@
                 grid-template-columns: 1fr;
             }
 
+            .contact-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
             .service-card {
                 min-height: auto;
             }
 
             .service-icon {
                 height: 150px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                min-height: 0;
             }
         }
 
@@ -1932,6 +1949,10 @@
                             <a class="profile-link" href="https://gitlab.com/jonefotso" target="_blank" rel="noopener" aria-label="Profil GitLab">
                                 <img src="images/ep15.jpg" alt="Icone GitLab">
                                 <span>GitLab</span>
+                            </a>
+                            <a class="profile-link" href="https://www.linkedin.com/in/beguil-wilfried-kenfack-a473b343b" target="_blank" rel="noopener" aria-label="Profil LinkedIn">
+                                <img src="images/linkedin.svg" alt="Icone LinkedIn">
+                                <span>LinkedIn</span>
                             </a>
                         </div>
                     </article>
