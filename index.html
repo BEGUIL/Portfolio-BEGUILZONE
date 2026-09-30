@@ -1335,6 +1335,43 @@
         }
 
         @media (max-width: 980px) {
+            .hero-grid {
+                gap: 18px;
+                align-items: start;
+            }
+
+            .hero-grid > .reveal:first-child {
+                display: contents;
+            }
+
+            .hero-grid > .reveal:first-child > .label {
+                grid-row: 1;
+                margin-bottom: 0;
+            }
+
+            .hero-grid > .portrait-card {
+                grid-row: 2;
+                margin-bottom: 8px;
+            }
+
+            .hero-grid > .reveal:first-child > h1 {
+                grid-row: 3;
+            }
+
+            .hero-grid > .reveal:first-child > .role {
+                grid-row: 4;
+            }
+
+            .hero-grid > .reveal:first-child > p {
+                grid-row: 5;
+            }
+
+            .hero-grid > .reveal:first-child > .actions {
+                grid-row: 6;
+            }
+        }
+
+        @media (max-width: 980px) {
             .mobile-topbar {
                 display: flex;
             }
