@@ -1707,7 +1707,7 @@
                         processus avec une culture DevOps.
                     </p>
                     <div class="actions">
-                        <a class="btn btn-primary" href="#portfolio">Voir mes projets</a>
+                        <a class="btn btn-primary" id="download-cv" href="CV.pdf" download="CV.pdf">Télécharger mon CV</a>
                         <a class="btn btn-ghost" href="#contact">Me contacter</a>
                     </div>
                 </div>
@@ -2069,6 +2069,32 @@
     </footer>
 
     <script>
+        const downloadCvButton = document.getElementById('download-cv');
+
+        downloadCvButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            try {
+                const response = await fetch('CV.pdf');
+                if (!response.ok) throw new Error('CV introuvable');
+
+                const cvBlob = await response.blob();
+                const downloadUrl = URL.createObjectURL(cvBlob);
+                const temporaryLink = document.createElement('a');
+                temporaryLink.href = downloadUrl;
+                temporaryLink.download = 'CV.pdf';
+                document.body.appendChild(temporaryLink);
+                temporaryLink.click();
+                temporaryLink.remove();
+                URL.revokeObjectURL(downloadUrl);
+            } catch (error) {
+                const temporaryLink = document.createElement('a');
+                temporaryLink.href = 'CV.pdf';
+                temporaryLink.download = 'CV.pdf';
+                temporaryLink.click();
+            }
+        });
+
         const menuButton = document.querySelector('.menu-button');
         const menuOverlay = document.querySelector('.menu-overlay');
         const navLinks = document.querySelectorAll('.nav-link');
