@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio de BEGUILZONE, developpeur web et mobile, aspirant DevOps.">
     <title>BEGUILZONE | Portfolio Web Mobile DevOps</title>
+    <link rel="preload" href="images/img1.jpg" as="image" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -849,6 +850,82 @@
             margin-top: 18px;
         }
 
+        .project-audio {
+            display: grid;
+            grid-template-columns: 96px minmax(0, 1fr);
+            gap: 20px;
+            align-items: center;
+            margin-top: 24px;
+            padding: 18px;
+            border: 1px solid rgba(247, 184, 75, 0.24);
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(247, 184, 75, 0.12), rgba(49, 244, 201, 0.06));
+        }
+
+        .project-audio[hidden] {
+            display: none;
+        }
+
+        .project-audio-cover {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+        }
+
+        .project-audio-label {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--accent);
+            font-size: 0.76rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .project-audio-title {
+            margin: 0 0 13px;
+            font-size: 1.08rem;
+        }
+
+        .audio-controls {
+            display: grid;
+            grid-template-columns: auto auto auto auto minmax(110px, 1fr) auto;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .audio-control-button {
+            min-width: 42px;
+            height: 42px;
+            padding: 0 10px;
+            border: 1px solid rgba(49, 244, 201, 0.28);
+            border-radius: 999px;
+            background: rgba(49, 244, 201, 0.1);
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 900;
+        }
+
+        .audio-play-button {
+            background: var(--brand);
+            color: #071017;
+            font-size: 1rem;
+        }
+
+        .audio-time {
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .audio-progress {
+            width: 100%;
+            accent-color: var(--brand);
+            cursor: pointer;
+        }
+
         .project-gallery {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1590,6 +1667,37 @@
                 grid-template-columns: 1fr;
             }
 
+            .project-audio {
+                grid-template-columns: 64px minmax(0, 1fr);
+                gap: 13px;
+                padding: 14px;
+            }
+
+            .project-audio-cover {
+                width: 64px;
+                height: 64px;
+            }
+
+            .audio-controls {
+                grid-template-columns: repeat(3, auto);
+            }
+
+            .audio-progress {
+                grid-column: 1 / -1;
+                grid-row: 2;
+            }
+
+            .audio-current {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            .audio-duration {
+                grid-column: 3;
+                grid-row: 3;
+                text-align: right;
+            }
+
             .project-gallery img {
                 height: 190px;
             }
@@ -1773,7 +1881,7 @@
                 <div class="section-head reveal">
                     <div>
                         <span class="label">Services</span>
-                        <h2>Ce que je peux construire.</h2>
+                        <h2>Ce que je peux faire.</h2>
                     </div>
                     <p>
                         Des solutions concretes pour des besoins academiques, commerciaux ou collaboratifs.
@@ -1795,6 +1903,13 @@
                         <div class="service-icon"><img src="images/ep18.jpg" alt="Culture DevOps"></div>
                         <h3>Culture DevOps</h3>
                         <p>Versioning, collaboration Git/GitHub/GitLab, conteneurisation Docker et logique de livraison.</p>
+                    </article>
+                    <article class="service-card reveal">
+                        <div class="service-icon">
+                            <img src="images/creation-ia.png" alt="Création de visuels, chansons et documents avec l'intelligence artificielle">
+                        </div>
+                        <h3>Création de contenus avec l'IA</h3>
+                        <p>Création de visuels professionnels, de chansons, de documents PDF, Word et bien d'autres grâce à l'intelligence artificielle.</p>
                     </article>
                 </div>
             </div>
@@ -1860,7 +1975,10 @@
                                 l'amelioration pedagogique.
                             </p>
                             <div class="tags"><span class="tag">Web App</span><span class="tag">Evaluation</span><span class="tag">PHP</span></div>
-                            <span class="project-detail-button">Voir les details</span>
+                            <div class="project-actions">
+                                <span class="project-detail-button">Voir les details</span>
+                                <a class="project-detail-button project-live-button" href="https://evaluation.crminubil.com/bord.php" target="_blank" rel="noopener">Voir le site</a>
+                            </div>
                         </div>
                     </article>
 
@@ -1897,6 +2015,18 @@
                             </p>
                             <div class="tags"><span class="tag">Dockerfile</span><span class="tag">Python</span><span class="tag">Java</span><span class="tag">PHP</span></div>
                             <span class="project-detail-button">Voir les details</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal project-detail-trigger" tabindex="0" role="button" data-project-key="visuels" style="--project-bg: linear-gradient(135deg, rgba(247,184,75,0.3), rgba(7,16,23,0.42)), url('visuels/ep5.png') center/cover;">
+                        <div class="project-content">
+                            <h3>Créations visuelles et musicales</h3>
+                            <p>
+                                Conception de visuels professionnels et de chansons originales avec l'appui de
+                                l'intelligence artificielle.
+                            </p>
+                            <div class="tags"><span class="tag">Design graphique</span><span class="tag">Musique</span><span class="tag">IA créative</span></div>
+                            <span class="project-detail-button">Découvrir la galerie</span>
                         </div>
                     </article>
                 </div>
@@ -2035,6 +2165,23 @@
                 </p>
                 <div class="project-modal-link"></div>
 
+                <div class="project-audio" hidden>
+                    <img class="project-audio-cover" src="visuels/ep5.png" alt="Pochette de la création musicale">
+                    <div class="project-audio-content">
+                        <span class="project-audio-label">Création musicale</span>
+                        <h3 class="project-audio-title">Never Down Never Break (DevOps Dream)</h3>
+                        <audio class="project-audio-element" preload="metadata"></audio>
+                        <div class="audio-controls">
+                            <button class="audio-control-button audio-back" type="button" aria-label="Reculer de 10 secondes">−10 s</button>
+                            <button class="audio-control-button audio-play-button" type="button" aria-label="Lire la chanson">▶</button>
+                            <button class="audio-control-button audio-forward" type="button" aria-label="Avancer de 10 secondes">+10 s</button>
+                            <span class="audio-time audio-current">0:00</span>
+                            <input class="audio-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progression de la chanson">
+                            <span class="audio-time audio-duration">0:00</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="project-detail-grid"></div>
 
                 <div class="tags project-modal-tags"></div>
@@ -2108,6 +2255,16 @@
         const projectModalTitle = document.querySelector('#project-modal-title');
         const projectModalDescription = document.querySelector('.project-modal-description');
         const projectModalLink = document.querySelector('.project-modal-link');
+        const projectAudio = document.querySelector('.project-audio');
+        const projectAudioElement = document.querySelector('.project-audio-element');
+        const projectAudioCover = document.querySelector('.project-audio-cover');
+        const projectAudioTitle = document.querySelector('.project-audio-title');
+        const audioPlayButton = document.querySelector('.audio-play-button');
+        const audioBackButton = document.querySelector('.audio-back');
+        const audioForwardButton = document.querySelector('.audio-forward');
+        const audioProgress = document.querySelector('.audio-progress');
+        const audioCurrent = document.querySelector('.audio-current');
+        const audioDuration = document.querySelector('.audio-duration');
         const projectDetailGrid = document.querySelector('.project-detail-grid');
         const projectModalTags = document.querySelector('.project-modal-tags');
         const projectGallery = document.querySelector('.project-gallery');
@@ -2180,7 +2337,7 @@
                 label: 'Projet Web',
                 title: 'Application de gestion des evaluations',
                 hero: 'images/evaluation/ep1.png',
-                liveUrl: 'http://evaluation.crminubil.com/',
+                liveUrl: 'https://evaluation.crminubil.com/bord.php',
                 description: "Cette plateforme permet d'evaluer l'enseignement dispense par un enseignant afin de soutenir l'amelioration pedagogique. Elle centralise les evaluations, facilite le suivi et aide a mieux analyser les retours des apprenants.",
                 details: [
                     ['Objectif', "Permettre aux apprenants d'evaluer les enseignements de maniere structuree."],
@@ -2224,6 +2381,27 @@
                 ],
                 tags: ['Applications vitrines', 'Dockerfile', 'Python', 'Java', 'PHP', 'Deploiement'],
                 images: ['images/dockerfile/ep1.jpg', 'images/dockerfile/ep2.jpg', 'images/dockerfile/ep3.jpg']
+            },
+            visuels: {
+                label: 'Design, musique & communication',
+                title: 'Créations visuelles et musicales professionnelles',
+                hero: 'visuels/ep5.png',
+                description: "Cette collection réunit des visuels professionnels et une chanson originale conçus avec l'appui de l'intelligence artificielle. Elle illustre ma capacité à produire des contenus créatifs pour renforcer une marque, présenter ses services et toucher son public par l'image comme par la musique.",
+                audio: {
+                    title: 'Never Down Never Break (DevOps Dream)',
+                    src: 'visuels/%F0%9F%8E%B5%20Never%20Down%20%20Never%20break%20(DevOps%20Dream)%E2%80%9D.mp3',
+                    cover: 'visuels/ep5.png'
+                },
+                details: [
+                    ['Objectif', 'Transformer un message ou une offre en un contenu visuel ou musical attractif et mémorable.'],
+                    ['Types de créations', 'Affiches, contenus éducatifs, publications pour les réseaux sociaux, menus commerciaux et chansons.'],
+                    ['Direction artistique', 'Choix des couleurs, des images, des typographies et de la composition selon l’identité du projet.'],
+                    ['Création musicale', 'Conception de chansons originales adaptées à un thème, un message ou une identité.'],
+                    ['Outils créatifs', 'Conception et amélioration des contenus avec des outils numériques et l’intelligence artificielle.'],
+                    ['Livrables', 'Visuels prêts à diffuser et créations audio directement exploitables sur les plateformes numériques.']
+                ],
+                tags: ['Design graphique', 'Création musicale', 'Chanson', 'Communication visuelle', 'Réseaux sociaux', 'Intelligence artificielle'],
+                images: ['visuels/ep1.png', 'visuels/ep2.png', 'visuels/ep4.png', 'visuels/ep5.png', 'visuels/ep6.png']
             }
         };
 
@@ -2244,6 +2422,60 @@
             });
         };
 
+        const formatAudioTime = (seconds) => {
+            if (!Number.isFinite(seconds)) return '0:00';
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, '0');
+            return `${minutes}:${remainingSeconds}`;
+        };
+
+        const updateAudioButton = () => {
+            const isPlaying = !projectAudioElement.paused;
+            audioPlayButton.textContent = isPlaying ? '❚❚' : '▶';
+            audioPlayButton.setAttribute('aria-label', isPlaying ? 'Mettre la chanson en pause' : 'Lire la chanson');
+        };
+
+        audioPlayButton.addEventListener('click', async () => {
+            if (projectAudioElement.paused) {
+                try {
+                    await projectAudioElement.play();
+                } catch (error) {
+                    updateAudioButton();
+                }
+            } else {
+                projectAudioElement.pause();
+            }
+        });
+
+        audioBackButton.addEventListener('click', () => {
+            projectAudioElement.currentTime = Math.max(0, projectAudioElement.currentTime - 10);
+        });
+
+        audioForwardButton.addEventListener('click', () => {
+            const end = Number.isFinite(projectAudioElement.duration) ? projectAudioElement.duration : projectAudioElement.currentTime + 10;
+            projectAudioElement.currentTime = Math.min(end, projectAudioElement.currentTime + 10);
+        });
+
+        audioProgress.addEventListener('input', () => {
+            if (!Number.isFinite(projectAudioElement.duration)) return;
+            projectAudioElement.currentTime = (Number(audioProgress.value) / 100) * projectAudioElement.duration;
+        });
+
+        projectAudioElement.addEventListener('loadedmetadata', () => {
+            audioDuration.textContent = formatAudioTime(projectAudioElement.duration);
+        });
+
+        projectAudioElement.addEventListener('timeupdate', () => {
+            audioCurrent.textContent = formatAudioTime(projectAudioElement.currentTime);
+            audioProgress.value = Number.isFinite(projectAudioElement.duration) && projectAudioElement.duration > 0
+                ? String((projectAudioElement.currentTime / projectAudioElement.duration) * 100)
+                : '0';
+        });
+
+        projectAudioElement.addEventListener('play', updateAudioButton);
+        projectAudioElement.addEventListener('pause', updateAudioButton);
+        projectAudioElement.addEventListener('ended', updateAudioButton);
+
         const openProjectModal = (projectKey) => {
             const project = projectDetails[projectKey];
             if (!project) return;
@@ -2252,6 +2484,27 @@
             projectModalTitle.textContent = project.title;
             projectModalDescription.textContent = project.description;
             projectModalLink.innerHTML = project.liveUrl ? `<a class="btn btn-primary" href="${project.liveUrl}" target="_blank" rel="noopener">Voir le site en ligne</a>` : '';
+            projectAudioElement.pause();
+            if (project.audio) {
+                projectAudio.hidden = false;
+                projectAudioTitle.textContent = project.audio.title;
+                projectAudioCover.src = project.audio.cover;
+                projectAudioElement.src = project.audio.src;
+                projectAudioElement.load();
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.ready.then((registration) => {
+                        registration.active?.postMessage({ type: 'CACHE_URL', url: project.audio.src });
+                    }).catch(() => {});
+                }
+                audioCurrent.textContent = '0:00';
+                audioDuration.textContent = '0:00';
+                audioProgress.value = '0';
+            } else {
+                projectAudio.hidden = true;
+                projectAudioElement.removeAttribute('src');
+                projectAudioElement.load();
+            }
+            updateAudioButton();
             projectDetailGrid.innerHTML = project.details.map(([title, text]) => `<div class="project-detail-card"><strong>${title}</strong><p>${text}</p></div>`).join('');
             projectModalTags.innerHTML = project.tags.map((tag) => `<span class="tag">${tag}</span>`).join('');
             projectGallery.innerHTML = project.images.length
@@ -2264,6 +2517,7 @@
         };
 
         const closeProjectModal = () => {
+            projectAudioElement.pause();
             projectModal.classList.remove('show');
             projectModal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
@@ -2406,6 +2660,14 @@ ${message}`);
         }, { rootMargin: '-45% 0px -45% 0px' });
 
         sections.forEach((section) => sectionObserver.observe(section));
+
+        if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(() => {
+                    // Le portfolio reste totalement fonctionnel si le cache n'est pas disponible.
+                });
+            });
+        }
     </script>
 </body>
 </html>
